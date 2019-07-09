@@ -47,3 +47,38 @@ if (isGuestOneVegan && isGuestTwoVegan) {
 } else {
     console.log('Here is the menu, eat what you like')
 }
+
+// Challenge 8 - Function Basics
+const convertFahrToCelcius = (fahrenheit) => {
+    return (fahrenheit - 32) * 5 / 9
+}
+
+// Challenge 9 - 
+const getTip = (total, tipPercent = 0.2) => {
+    return `A ${tipPercent * 100}% tip on $${total} would be $${total * tipPercent}`
+}
+
+console.log(getTip(100))
+
+// Challenge 10 - Grade Calc
+const getScore = (studentScore, maxScore) => {
+    const percent = studentScore / maxScore * 100
+    let letterGrade = ''
+    if (percent >= 90) {
+        letterGrade = 'A'
+    } else if (percent >= 80) {
+        letterGrade = 'B'
+    } else if (percent >= 70) {
+        letterGrade = 'C'
+    } else if (percent >= 60) {
+        letterGrade = 'D'
+    } else {
+        letterGrade = 'F'
+    }
+    letterGrade === 'A' || letterGrade === 'F' ? letter = 'an' : letter = 'a' 
+    return `You got ${letter} ${letterGrade} (${percent}%)`
+}
+
+console.log(getScore(18, 20))
+console.log(getScore(16, 20))
+console.log(getScore(9, 20))
