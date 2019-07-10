@@ -38,3 +38,23 @@ if (temp >= 60 && temp <= 90) {
 } else {
     console.log('It is meh out, do what you like')
 }
+
+// STRING METHODS
+let name = 'Adam Pascall  '
+console.log(name.length)
+console.log(name.toUpperCase())
+console.log(name.includes('goodone'))
+name = name.trim()
+console.log(name.length)
+
+// NUMBER METHODS
+const num = 123.5436
+console.log(num.toFixed(2))
+
+Math.round(num)
+Math.floor(num)
+Math.ceil(num)
+
+const min = 10
+const max = 20
+const randomNum = Math.floor(Math.random() * (max - min + 1)) + min
