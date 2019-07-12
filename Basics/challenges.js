@@ -156,3 +156,111 @@ const makeGuess = (guess) => {
     const randomNum = Math.floor(Math.random() * (max - min + 1)) + min
     return guess === randomNum
 }
+
+// Challenge 17 - Array Basics
+const todos = ['Do Thing 1', 'Do Thing 2', 'Do Another Thing', 'One more thing', 'And One More']
+
+console.log(`You have ${todos.length} todos`)
+console.log(todos[0])
+console.log(todos[todos.length - 2])
+
+// Challenge 18 - Array Methods
+todos.splice(2, 1)
+todos.push('Do this new item')
+todos.shift()
+
+// Challenge 19 - Looping Over Arrays
+todos.forEach((todo, index) => {
+    console.log(`${index + 1}. ${todo}`)
+})
+
+// Challenge 20 - The For Loop
+for (let index = 0; index < todos.length; index++) {
+    console.log(`${index + 1}. ${todos[index]}`)
+}
+
+// Challenge 21 - Searching Arays
+const todosObject = [{
+    text: 'Walk Dog',
+    completed: true
+}, {
+    text: 'Eat Soup',
+    completed: false
+}, {
+    text: 'Drink Water',
+    completed: true
+}, {
+    text: 'Clean House',
+    completed: false
+}, {
+    text: 'Do Stuff',
+    completed: true
+}]
+
+const deleteTodo = (todos, todoText) => {
+    const index = todos.findIndex((todo) => {
+        return todo.text.toLowerCase() === todoText.toLowerCase()
+    })
+    if (index >= 0) {
+        todos.splice(index, 1)
+    }
+}
+
+deleteTodo(todosObject, 'Walk dog')
+console.log(todosObject)
+
+// Challenge 22 - Filter Arrays
+const getThingsToDo = (todos) => {
+    return todos.filter((todo) => {
+        return !todo.completed
+    })
+}
+
+// Challenge 23 - Sort Arrays
+const sortTodos = (todos) => {
+    todos.sort((a, b) => {
+        if (a.completed < b.completed) {
+            return -1
+        } else if (a.completed > b.completed) {
+            return 1
+        } else {
+            return 0
+        }
+    })
+}
+
+// Challenge 24 - Expense Tracker
+const expenseAccount = {
+    name: 'Adam',
+    expenses: [],
+    income: [],
+    addExpense(description, amount) {
+        this.expenses.push({description, amount})
+    },
+    addIncome(description, amount) {
+        this.income.push({description, amount})
+    },
+    resetAccount() {
+        this.income = []
+        this.expenses = []
+    },
+    getAccountSummary() {
+        let totalExpenses = 0
+        let totalIncome = 0
+
+        this.expenses.forEach((expense) => {
+            totalExpenses += expense.amount
+        })
+        this.income.forEach((inc) => {
+            totalIncome += inc.amount
+        })
+        return `${this.name} has $${totalIncome - totalExpenses}, $${totalIncome} in income & $${totalExpenses} in expenses`
+    }
+}
+
+expenseAccount.addExpense('Rent', 150)
+expenseAccount.addExpense('Coffee', 2)
+expenseAccount.addIncome('Salary', 2000)
+console.log(expenseAccount.getAccountSummary())
+expenseAccount.resetAccount()
+console.log(expenseAccount.getAccountSummary())
