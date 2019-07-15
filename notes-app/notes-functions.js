@@ -1,7 +1,14 @@
+'use strict'
+
 // Read Existing Notes from local storage
 const getSavedNotes = () => {
     const notesJSON = localStorage.getItem('notes')
-    return (notesJSON !== null) ? JSON.parse(notesJSON) : []
+
+    try {
+        return (notesJSON) ? JSON.parse(notesJSON) : []
+    } catch (e) {
+        return []
+    }
 }
 
 // Save Notes to local Storage
@@ -13,14 +20,12 @@ const saveNotes = (notes) => {
 const renderNotes = (notes, filters) => {
     notes = sortNotes(notes, filters.sortBy)
 
-    const filteredNotes = notes.filter(note => {
-        return note.title.toLowerCase().includes(filters.searchText.toLowerCase())
-    })
+    const filteredNotes = notes.filter(note => note.title.toLowerCase().includes(filters.searchText.toLowerCase()))
     
     document.querySelector('#notes').innerHTML = ''
 
     filteredNotes.forEach(note => {
-        noteEl = generateNoteDOM(note)
+        const noteEl = generateNoteDOM(note)
         
         document.querySelector('#notes').appendChild(noteEl)
     })
@@ -42,11 +47,8 @@ const generateNoteDOM = (note) => {
     button.textContent = 'x'
     noteEl.appendChild(button)
 
-    if (note.title.length > 0) {
-        textEl.textContent = note.title
-    } else {
-        textEl.textContent = 'Unkown Note'
-    }
+    textEl.textContent = note.title.length > 0 ? note.title : 'Unkown Note'
+
     textEl.setAttribute('href', `/edit.html#${note.id}`)
     noteEl.appendChild(textEl)
 
@@ -54,9 +56,7 @@ const generateNoteDOM = (note) => {
 }
 
 const removeNote = (id) => {
-    const noteIndex = notes.findIndex((note) => {
-        return note.id === id
-    })
+    const noteIndex = notes.findIndex((note) => note.id === id)
 
     if (noteIndex > -1) {
         notes.splice(noteIndex, 1)
@@ -64,9 +64,7 @@ const removeNote = (id) => {
 }
 
 // Generate the last edited Message
-const generateLastEdited = (timeStamp) => {
-    return `Last Edited ${moment(timeStamp).fromNow()}`
-}
+const generateLastEdited = (timeStamp) => `Last Edited ${moment(timeStamp).fromNow()}`
 
 // Sort Your notes by one of three options 
 const sortNotes = (notes, sortBy) => {

@@ -1,7 +1,14 @@
+'use strict'
+
 // Read Existing Notes from local storage
 const getSavedTodos = () => {
     const todosJSON = localStorage.getItem('todos')
-    return (todosJSON !== null) ? JSON.parse(todosJSON) : []
+
+    try {
+        return (todosJSON) ? JSON.parse(todosJSON) : []
+    } catch (e) {
+        return []
+    }
 }
 
 // Save Notes to local Storage
@@ -19,9 +26,7 @@ const renderTodos = (todos, filters) => {
         
     document.querySelector('#todos').innerHTML = ''
 
-    const incompleteTodos = filteredTodos.filter((todo) => {
-        return !todo.completed 
-    })
+    const incompleteTodos = filteredTodos.filter((todo) => !todo.completed)
 
     document.querySelector('#todos').appendChild(generateSummaryDOM(incompleteTodos))
 
@@ -72,9 +77,7 @@ const generateSummaryDOM = (incompleteTodos) => {
 
 
 const removeTodo = (id) => {
-    const todoIndex = todos.findIndex((todo) => {
-        return todo.id === id
-    })
+    const todoIndex = todos.findIndex((todo) => todo.id === id)
 
     if (todoIndex > -1) {
         todos.splice(todoIndex, 1)
@@ -82,11 +85,9 @@ const removeTodo = (id) => {
 }
 
 const toggleTodo = (id) => {
-    const todo = todos.find(todo => {
-        return todo.id === id
-    })
+    const todo = todos.find(todo => todo.id === id)
 
-    if (todo !== undefined) {
+    if (todo) {
         todo.completed = !todo.completed
     }
 }
