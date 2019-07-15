@@ -58,3 +58,35 @@ Math.ceil(num)
 const min = 10
 const max = 20
 const randomNum = Math.floor(Math.random() * (max - min + 1)) + min
+
+
+// DATES
+const now = new Date()
+console.log(now.toString)
+console.log(`Year: ${now.getFullYear()}`)
+console.log(`Month: ${now.getMonth()}`)
+console.log(`Day of Month: ${now.getDate()}`)
+console.log(`Hour: ${now.getHours()}`)
+console.log(`Minutes: ${now.getMinutes()}`)
+console.log(`Seconds: ${now.getSeconds()}`)
+
+const then = new Date('January 21 2001 6:25:01')
+console.log(now.getTime())
+
+const someTime = now.getTime()
+const myDate = new Date(someTime)
+
+// MOMENT
+const momentNow = moment()
+console.log(momentNow.toString())
+
+momentNow.minute(3)
+momentNow.add(1, 'year').subtract(20, 'days')
+console.log(momentNow.format('MMMM Do, YYYY'))
+
+console.log(momentNow.fromNow())
+
+const nowTimeStamp = momentNow.valueOf()
+
+const nowMom = moment()
+nowMom.year(1901).month(1).date(1)
