@@ -1,15 +1,26 @@
+'use strict'
 
-const game = new Hangman('Bruce Man', 4)
-
+let game
 const puzzleEl = document.querySelector('#puzzle')
-puzzleEl.textContent = game.puzzle
-
 const guessesEl = document.querySelector('#guesses')
-guessesEl.textContent = game.statusMessage
 
 window.addEventListener('keypress', e => {
     const guess = String.fromCharCode(e.charCode)
     game.makeGuess(guess)
+    render()
+})
+
+const render = () => {
     puzzleEl.textContent = game.puzzle
     guessesEl.textContent = game.statusMessage
-})
+}
+
+const startGame = async () => {
+    const puzzle = await getPuzzle('2')
+    game = new Hangman(puzzle, 5)
+    render()
+}
+
+document.querySelector('#reset-game').addEventListener('click', startGame)
+
+startGame()
