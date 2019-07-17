@@ -4,27 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles/styles.css">
     <title>Notes App</title>
 </head>
 <body>
-    <h1>Notes App</h1>
-    <h2>Take Notes and never forget</h2>
+    <header class="header">
+        <div class="container">
+            <h1 class="header__title">Notes App</h1>
+            <h2 class="header__subtitle">Take Notes and never forget</h2>
+        </div>
+    </header>
     
-    <input type="text" id="search-text" placeholder="Search Notes">
-    <select id="filter-by">
-        <option value="byEdited">Sort by Last Edited</option>
-        <option value="byCreated">Sort by Recently Created</option>
-        <option value="alphabetical">Sort Alphabetically</option>
-    </select>
-
-    <div id="notes">
-
+    <div class="actions">
+        <div class="actions__containers">
+            <input class="input" type="text" id="search-text" placeholder="Search Notes">
+            <select class="dropdown" id="filter-by">
+                <option value="byEdited">Sort by Last Edited</option>
+                <option value="byCreated">Sort by Recently Created</option>
+                <option value="alphabetical">Sort Alphabetically</option>
+            </select>
+        </div>
     </div>
-    <button id="create-note">Create Note</button>
+    
+    <div class="container">
+        <div id="notes"></div>
+        <button class="button" id="create-note">Create Note</button>
+    </div>  
 
-    <script src="uuid.js"></script>
-    <script src="moment.js"></script>
-    <script src="notes-functions.js"></script>
-    <script src="notes-app.js"></script>
+    <script src="scripts/uuid.js"></script>
+    <script src="scripts/moment.js"></script>
+    <script src="scripts/notes-functions.js"></script>
+    <script src="scripts/notes-app.js"></script>
 </body>
 </html>

@@ -30,40 +30,56 @@ const renderTodos = (todos, filters) => {
 
     document.querySelector('#todos').appendChild(generateSummaryDOM(incompleteTodos))
 
-    filteredTodos.forEach(todo => {
-        document.querySelector('#todos').appendChild(generateTodoDOM(todo))
-    })
+    if (filteredTodos.length > 0) {
+        filteredTodos.forEach(todo => {
+            document.querySelector('#todos').appendChild(generateTodoDOM(todo))
+        })
+    } else {
+        const emptyMessage = document.createElement('p')
+        emptyMessage.classList.add('empty-message')
+        emptyMessage.textContent = 'Please add Some Todos'
+        document.querySelector('#todos').appendChild(emptyMessage)
+    }
+    
 }
 
 // Get the DOM Elements for an individual note
 const generateTodoDOM = (todo) => {
-    const todoEl = document.createElement('div')
+    const todoEl = document.createElement('label')
+    const divEl = document.createElement('div')
 
     // Create & Append Checkbox
     const todoCheck = document.createElement('input')
     todoCheck.setAttribute('type', 'checkbox')
     todoCheck.checked = todo.completed
+    divEl.appendChild(todoCheck)
     todoCheck.addEventListener('change', () => {
         toggleTodo(todo.id)
         saveTodos(todos)
         renderTodos(todos, filters)
     })
-    todoEl.appendChild(todoCheck)
+    
 
     // Create & Append Text
     const todoText = document.createElement('span')
     todoText.textContent = todo.text
-    todoEl.appendChild(todoText)
+    divEl.appendChild(todoText)
+
+    // Setup Container Div Element
+    todoEl.classList.add('list-item')
+    divEl.classList.add('list-item__container')
+    todoEl.appendChild(divEl)
 
     // Create & Append Button
     const removeButton = document.createElement('button')
+    removeButton.textContent = 'Remove'
+    removeButton.classList.add('button', 'button--text')
+    todoEl.appendChild(removeButton)
     removeButton.addEventListener('click', () => {
         removeTodo(todo.id)
         saveTodos(todos)
         renderTodos(todos, filters)
     })
-    removeButton.textContent = 'x'
-    todoEl.appendChild(removeButton)
    
     return todoEl
 }
@@ -71,7 +87,8 @@ const generateTodoDOM = (todo) => {
 // Get the DOM Elemenst for list summary
 const generateSummaryDOM = (incompleteTodos) => {
     const todosLeft = document.createElement('h2')
-    todosLeft.textContent = `You have ${incompleteTodos.length} todos left`
+    todosLeft.textContent = `You have ${incompleteTodos.length} todo(s) left`
+    todosLeft.classList.add('list-title')
     return todosLeft
 }
 
